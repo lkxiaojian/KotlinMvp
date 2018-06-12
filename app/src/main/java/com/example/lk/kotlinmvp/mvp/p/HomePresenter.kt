@@ -2,18 +2,18 @@ package com.example.lk.kotlinmvp.mvp.p
 
 import android.content.Context
 import com.example.lk.kotlinframework.mvp.m.moudle.HomeModel
-import com.example.lk.kotlinmvp.mvp.v.HomeContract
+import com.example.lk.kotlinmvp.mvp.v.Contract
 import com.example.lk.kotlinmvp.uitls.applySchedulers
 import io.reactivex.Observable
 
 /**
  * Created by lk on 2018/6/8.
  */
-class HomePresenter(context: Context, view: HomeContract.View) : HomeContract.Presenter {
+class HomePresenter(context: Context, view: Contract.View) : Contract.Presenter {
 
 
     var mContext: Context? = null
-    var mView: HomeContract.View? = null
+    var mView: Contract.View? = null
     val mModel: HomeModel by lazy {
         HomeModel()
     }

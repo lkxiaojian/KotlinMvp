@@ -1,11 +1,9 @@
 package com.example.lk.kotlinmvp.ui.fragment
 
-import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,19 +11,16 @@ import com.example.lk.kotlinframework.mvp.m.bean.HomeBean
 import com.example.lk.kotlinmvp.R
 import com.example.lk.kotlinmvp.adapter.HomeAdatper
 import com.example.lk.kotlinmvp.mvp.p.HomePresenter
-import com.example.lk.kotlinmvp.mvp.v.HomeContract
+import com.example.lk.kotlinmvp.mvp.v.Contract
 import com.example.lk.kotlinmvp.ui.fragment.base.BaseFragment
-import com.google.gson.Gson
-import com.google.gson.internal.LinkedTreeMap
 import kotlinx.android.synthetic.main.fragment_home.*
 import java.util.*
 import java.util.regex.Pattern
-import kotlin.collections.LinkedHashMap
 
 /**
  * Created by lk on 2018/6/12.
  */
-class HomeFragment : BaseFragment(), HomeContract.View, SwipeRefreshLayout.OnRefreshListener {
+class HomeFragment : BaseFragment(), Contract.View, SwipeRefreshLayout.OnRefreshListener {
     var TAG = "HomeFragment"
     var mIsRefresh: Boolean = false
     var mPresenter: HomePresenter? = null
