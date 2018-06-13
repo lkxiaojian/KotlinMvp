@@ -14,9 +14,6 @@ import com.example.lk.kotlinmvp.R
  */
 class ImageLoadUtils {
     companion object {
-
-
-        @BindingAdapter("imageUrl")
         fun display(context: Context, imageView: ImageView?, url: String) {
             if (imageView == null) {
                 return

@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import com.example.lk.kotlinframework.mvp.m.bean.HomeBean
 import com.example.lk.kotlinmvp.R
 import com.example.lk.kotlinmvp.adapter.HomeAdatper
-import com.example.lk.kotlinmvp.mvp.p.HomePresenter
+import com.example.lk.kotlinmvp.mvp.p.ParsingPresenter
 import com.example.lk.kotlinmvp.mvp.v.Contract
 import com.example.lk.kotlinmvp.ui.fragment.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -23,7 +23,7 @@ import java.util.regex.Pattern
 class HomeFragment : BaseFragment(), Contract.View, SwipeRefreshLayout.OnRefreshListener {
     var TAG = "HomeFragment"
     var mIsRefresh: Boolean = false
-    var mPresenter: HomePresenter? = null
+    var mPresenter: ParsingPresenter? = null
     var mList = ArrayList<HomeBean.IssueListBean.ItemListBean>()
     var mAdapter: HomeAdatper? = null
     var data: String? = null
@@ -69,7 +69,7 @@ class HomeFragment : BaseFragment(), Contract.View, SwipeRefreshLayout.OnRefresh
     }
 
     override fun initView() {
-        mPresenter = activity?.let { HomePresenter(it, this) }
+        mPresenter = activity?.let { ParsingPresenter(it, this) }
         mPresenter?.start<HomeBean>("loadData",null)
         recyclerView.layoutManager = LinearLayoutManager(activity)
         mAdapter = activity?.let { HomeAdatper(it, mList) }
