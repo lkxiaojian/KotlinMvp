@@ -24,12 +24,7 @@ public class DataRecycleUtils {
             return;
         }
         recyclerView.setLayoutManager(new GridLayoutManager(recyclerView.getContext(), 2));
-//        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext(), LinearLayoutManager.VERTICAL, false));
         int layout = R.layout.find_item;
-//        for (int i = 0; i < data.size(); i++) {
-//            Log.e("test", "name--" + data.get(i).getName() + "--bgPicture--" + data.get(i).getBgPicture());
-//        }
-
         BaseAdapterIml adapter = new BaseAdapterIml(recyclerView.getContext(), data, layout);
         recyclerView.setAdapter(adapter);
     }
