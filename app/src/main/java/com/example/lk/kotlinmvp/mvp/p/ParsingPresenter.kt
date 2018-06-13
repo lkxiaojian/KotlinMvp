@@ -49,7 +49,7 @@ class ParsingPresenter(context: Context, view: Contract.View) : Contract.Present
     fun <T> moreData(data: String?) {
         val observable: Observable<T>? = mContext?.let { mModel.loadData(it, false, data) }
         observable?.applySchedulers()?.subscribe { bean: T ->
-            mView?.setData("", bean)
+            mView?.setData("loadData", bean)
         }
     }
 

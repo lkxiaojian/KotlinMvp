@@ -27,9 +27,12 @@ class HomeFragment : BaseFragment(), Contract.View, SwipeRefreshLayout.OnRefresh
     var mList = ArrayList<HomeBean.IssueListBean.ItemListBean>()
     var mAdapter: HomeAdatper? = null
     var data: String? = null
-    override fun<T> setData(type:String,reuslt: T) {
+    override fun <T> setData(type: String, reuslt: T) {
+        if (!"loadData".equals(type)) {
+            return
+        }
         var bean: HomeBean? = null
-        bean=  reuslt as HomeBean
+        bean = reuslt as HomeBean
         val regEx = "[^0-9]"
         val p = Pattern.compile(regEx)
         val m = p.matcher(bean?.nextPageUrl)
@@ -53,7 +56,7 @@ class HomeFragment : BaseFragment(), Contract.View, SwipeRefreshLayout.OnRefresh
         if (!mIsRefresh) {
             mIsRefresh = true
 
-            mPresenter?.start<HomeBean>("loadData",null)
+            mPresenter?.start<HomeBean>("loadData", null)
         }
     }
 
@@ -70,7 +73,7 @@ class HomeFragment : BaseFragment(), Contract.View, SwipeRefreshLayout.OnRefresh
 
     override fun initView() {
         mPresenter = activity?.let { ParsingPresenter(it, this) }
-        mPresenter?.start<HomeBean>("loadData",null)
+        mPresenter?.start<HomeBean>("loadData", null)
         recyclerView.layoutManager = LinearLayoutManager(activity)
         mAdapter = activity?.let { HomeAdatper(it, mList) }
         recyclerView.adapter = mAdapter

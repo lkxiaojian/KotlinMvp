@@ -3,11 +3,14 @@ package com.example.lk.kotlinmvp
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.view.KeyEvent
 import android.view.View
+import android.widget.Toast
 import com.example.lk.kotlinmvp.ui.fragment.HomeFragment
 import com.example.lk.kotlinmvp.ui.fragment.HotFragment
 import com.example.lk.kotlinmvp.ui.fragment.MineFragment
 import com.example.lk.kotlinmvp.ui.fragment.FindFragment
+import com.example.lk.kotlinmvp.uitls.showToast
 import com.gyf.barlibrary.ImmersionBar
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -61,6 +64,8 @@ class MainActivity : AppCompatActivity() ,View.OnClickListener{
     var findFragment: FindFragment? = null
     var hotFragemnt: HotFragment? = null
     var mineFragment: MineFragment? = null
+    var toast: Toast? = null
+    var mExitTime: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -133,6 +138,20 @@ class MainActivity : AppCompatActivity() ,View.OnClickListener{
         rb_mine.setTextColor(resources.getColor(R.color.gray))
         rb_hot.setTextColor(resources.getColor(R.color.gray))
         rb_find.setTextColor(resources.getColor(R.color.gray))
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (System.currentTimeMillis().minus(mExitTime) <= 3000) {
+                finish()
+                toast!!.cancel()
+            } else {
+                mExitTime = System.currentTimeMillis()
+                toast = showToast("再按一次退出程序")
+            }
+            return true
+        }
+        return super.onKeyDown(keyCode, event)
     }
 
 }

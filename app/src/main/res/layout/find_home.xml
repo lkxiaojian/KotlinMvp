@@ -10,7 +10,7 @@
 
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -18,9 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:find="@{data}">
-
-
         </android.support.v7.widget.RecyclerView>
 
-    </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
 </layout>

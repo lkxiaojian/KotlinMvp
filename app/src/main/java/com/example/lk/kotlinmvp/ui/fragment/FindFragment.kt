@@ -22,6 +22,9 @@ class FindFragment : BaseFragment(), Contract.View {
     var mList: MutableList<FindBean>? = null
     var binding: FindHomeBinding? = null
     override fun <T> setData(type: String, bean: T) {
+        if (!"findFragment".equals(type)) {
+            return
+        }
         mList = bean as MutableList<FindBean>
         binding?.data = mList as ArrayList<FindBean>
 

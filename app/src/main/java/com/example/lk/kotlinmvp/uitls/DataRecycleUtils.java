@@ -4,6 +4,7 @@ import android.databinding.BindingAdapter;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.example.lk.kotlinframework.adapter.base.BaseAdapterIml;
 
@@ -25,7 +26,11 @@ public class DataRecycleUtils {
         recyclerView.setLayoutManager(new GridLayoutManager(recyclerView.getContext(), 2));
 //        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext(), LinearLayoutManager.VERTICAL, false));
         int layout = R.layout.find_item;
-        BaseAdapterIml adapter = new BaseAdapterIml(recyclerView.getContext(),data, layout);
+//        for (int i = 0; i < data.size(); i++) {
+//            Log.e("test", "name--" + data.get(i).getName() + "--bgPicture--" + data.get(i).getBgPicture());
+//        }
+
+        BaseAdapterIml adapter = new BaseAdapterIml(recyclerView.getContext(), data, layout);
         recyclerView.setAdapter(adapter);
     }
 

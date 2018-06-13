@@ -113,7 +113,6 @@ abstract class BaseDataRecycleAdapter<T>(var mContext: Context, var data: Mutabl
     }
 
     override fun getItemCount(): Int {
-        Log.e("datasize", "size--" + data!!.size)
         return if (data == null) 0 else data!!.size
     }
 
