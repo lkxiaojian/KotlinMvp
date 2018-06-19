@@ -40,22 +40,23 @@ class ParsingPresenter(context: Context, view: Contract.View) : Contract.Present
         }
     }
 
-    fun <T> moreData(data: String?,url: String,type: String,map: HashMap<*, *>?) {
-        val observable: Observable<T>? = mContext?.let { mModel.loadData(it, false, data) }
-        CustomData(observable, type)
-//        observable?.applySchedulers()?.subscribe { bean: T ->
-//            mView?.setData("loadData", bean)
-//        }
-    }
+    fun <T> moreData(data: String?, url: String, type: String, map: HashMap<*, *>?) {
+        when (type) {
+            "loadData" -> {
+                val observable: Observable<T>? = mContext?.let { mModel.loadData(it, false, data) }
+                CustomData(observable, type)
+            }
+        }
+        }
 
-    fun <T> CustomData(observable: Observable<T>?, type: String) {
-        observable?.applySchedulers()?.subscribe({ beans: T ->
-            mView?.setData(type, beans)
-        }, { error: Throwable ->
-            mView?.onError(type, error)
-        })
+        fun <T> CustomData(observable: Observable<T>?, type: String) {
+            observable?.applySchedulers()?.subscribe({ beans: T ->
+                mView?.setData(type, beans)
+            }, { error: Throwable ->
+                mView?.onError(type, error)
+            })
 
+        }
     }
-}
 
 
