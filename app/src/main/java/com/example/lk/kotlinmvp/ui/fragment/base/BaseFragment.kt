@@ -6,9 +6,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.lk.kotlinmvp.mvp.v.Contract
 
 
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragment : Fragment(), Contract.View {
     var isFirst: Boolean = false
     var rootView: View? = null
     var isFragmentVisiable: Boolean = false

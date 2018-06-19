@@ -11,7 +11,6 @@ import com.example.lk.kotlinframework.mvp.m.bean.HomeBean
 import com.example.lk.kotlinmvp.R
 import com.example.lk.kotlinmvp.adapter.HomeAdatper
 import com.example.lk.kotlinmvp.mvp.p.ParsingPresenter
-import com.example.lk.kotlinmvp.mvp.v.Contract
 import com.example.lk.kotlinmvp.ui.fragment.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 import java.util.*
@@ -20,7 +19,7 @@ import java.util.regex.Pattern
 /**
  * Created by lk on 2018/6/12.
  */
-class HomeFragment : BaseFragment(), Contract.View, SwipeRefreshLayout.OnRefreshListener {
+class HomeFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
     override fun setError(type: String, error: Throwable) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -89,7 +88,7 @@ class HomeFragment : BaseFragment(), Contract.View, SwipeRefreshLayout.OnRefresh
                 var lastPositon = layoutManager.findLastVisibleItemPosition()
                 if (newState == RecyclerView.SCROLL_STATE_IDLE && lastPositon == mList.size - 1) {
                     if (data != null) {
-                        mPresenter?.moreData<HomeBean>(data)
+                        mPresenter?.moreData<HomeBean>(data,"","loadData",null)
                     }
 
                 }

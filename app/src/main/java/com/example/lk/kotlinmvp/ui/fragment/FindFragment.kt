@@ -17,7 +17,7 @@ import java.util.ArrayList
 /**
  * Created by lk on 2018/6/12.
  */
-class FindFragment : BaseFragment(), Contract.View {
+class FindFragment : BaseFragment(){
     override fun setError(type: String, error: Throwable) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
