@@ -52,7 +52,7 @@ class ParsingPresenter(context: Context, view: Contract.View) : Contract.Present
         observable?.applySchedulers()?.subscribe({ beans: T ->
             mView?.setData(type, beans)
         }, { error: Throwable ->
-            mView?.setError(type, error)
+            mView?.onError(type, error)
         })
 
     }

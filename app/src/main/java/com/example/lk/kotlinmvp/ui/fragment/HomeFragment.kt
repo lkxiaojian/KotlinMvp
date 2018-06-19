@@ -20,9 +20,10 @@ import java.util.regex.Pattern
  * Created by lk on 2018/6/12.
  */
 class HomeFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
-    override fun setError(type: String, error: Throwable) {
+    override fun onError(type: String, error: Throwable) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
 
     var TAG = "HomeFragment"
     var mIsRefresh: Boolean = false

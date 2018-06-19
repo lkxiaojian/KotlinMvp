@@ -11,7 +11,7 @@ import java.util.*
 interface Contract {
     interface View : BaseView<Presenter> {
         fun <T> setData(type: String, bean: T)
-        fun  setError( type: String,error: Throwable)
+        fun  onError( type: String,error: Throwable)
     }
 
     interface Presenter : BasePresenter {
