@@ -20,12 +20,12 @@ data class FindBean(var id: Int, var name: String?, var alias: Any?,
                     var description: String?, var bgPicture: String?,
                     var bgColor: String?, var headerImage: String?) {
 
-    companion object {
-        @JvmStatic
-        fun Onclick(view: View, findbean: FindBean) {
-            Utils.ToastShort(view.context, findbean.toString())
+
+
+        fun Onclick(view: View) {
+            Utils.ToastShort(view.context, this.name)
         }
-    }
+
 
 
 }

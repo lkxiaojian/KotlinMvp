@@ -4,14 +4,12 @@ import android.content.Context
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.lk.kotlinframework.viewholder.BindingHolder
 import com.example.lk.kotlinframework.viewholder.ViewHolder
 import com.example.lk.kotlinmvp.BR
-
 /**
  * Created by lk on 2018/5/7.
  */
@@ -96,7 +94,7 @@ abstract class BaseDataRecycleAdapter<T>(var mContext: Context, var data: Mutabl
 
     override fun onBindViewHolder(holder: BindingHolder, position: Int) {
         holder.binding.setVariable(BR.bean, data!![position])
-        // 立刻刷新界面
+       // 立刻刷新界面
         holder.binding.executePendingBindings()
         convert(holder, data!![position])
 

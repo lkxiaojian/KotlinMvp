@@ -2,7 +2,6 @@ package com.example.lk.kotlinmvp.mvp.p
 
 import android.content.Context
 import com.example.lk.kotlinframework.mvp.m.moudle.HomeModel
-import com.example.lk.kotlinmvp.mvp.m.bean.FindBean
 import com.example.lk.kotlinmvp.mvp.v.Contract
 import com.example.lk.kotlinmvp.uitls.applySchedulers
 import io.reactivex.Observable
@@ -24,24 +23,19 @@ class ParsingPresenter(context: Context, view: Contract.View) : Contract.Present
         mContext = context
     }
 
-    override fun <T> start(type: String, map: HashMap<*, *>?) {
-        requestData<T>(type, map)
+    override fun <T> start(type: String, url: String, map: HashMap<*, *>?) {
+        requestData<T>(type, url, map)
     }
 
-    override fun <T> requestData(type: String, map: HashMap<*, *>?) {
+    override fun <T> requestData(type: String, url: String, map: HashMap<*, *>?) {
         when (type) {
             "loadData" -> {
                 val observable: Observable<T>? = mContext?.let { mModel.loadData(it, true, "0") }
-                observable?.applySchedulers()?.subscribe { bean: T ->
-                    mView?.setData(type, bean)
-                }
-
+                CustomData(observable, type)
             }
-            "findFragment" ->{
-                val observable : Observable<T>? = mContext?.let { mModel.FindData(mContext!!) }
-                observable?.applySchedulers()?.subscribe { beans : T ->
-                    mView?.setData(type,beans)
-                }
+            "findFragment" -> {
+                val observable: Observable<T>? = mContext?.let { mModel.FindData(mContext!!) }
+                CustomData(observable, type)
             }
         }
     }
@@ -53,5 +47,14 @@ class ParsingPresenter(context: Context, view: Contract.View) : Contract.Present
         }
     }
 
+    fun <T> CustomData(observable: Observable<T>?, type: String) {
+        observable?.applySchedulers()?.subscribe({ beans: T ->
+            mView?.setData(type, beans)
+        }, { error: Throwable ->
+            mView?.setError(type, error)
+        })
 
+    }
 }
+
+

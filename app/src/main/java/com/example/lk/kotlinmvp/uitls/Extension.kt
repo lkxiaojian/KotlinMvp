@@ -28,3 +28,4 @@ fun <T> Observable<T>.applySchedulers(): Observable<T> {
             unsubscribeOn(Schedulers.io()).
             observeOn(AndroidSchedulers.mainThread())
 }
+

@@ -21,6 +21,10 @@ import java.util.regex.Pattern
  * Created by lk on 2018/6/12.
  */
 class HomeFragment : BaseFragment(), Contract.View, SwipeRefreshLayout.OnRefreshListener {
+    override fun setError(type: String, error: Throwable) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     var TAG = "HomeFragment"
     var mIsRefresh: Boolean = false
     var mPresenter: ParsingPresenter? = null
@@ -56,7 +60,7 @@ class HomeFragment : BaseFragment(), Contract.View, SwipeRefreshLayout.OnRefresh
         if (!mIsRefresh) {
             mIsRefresh = true
 
-            mPresenter?.start<HomeBean>("loadData", null)
+            mPresenter?.start<HomeBean>("loadData", "",null)
         }
     }
 
@@ -73,7 +77,7 @@ class HomeFragment : BaseFragment(), Contract.View, SwipeRefreshLayout.OnRefresh
 
     override fun initView() {
         mPresenter = activity?.let { ParsingPresenter(it, this) }
-        mPresenter?.start<HomeBean>("loadData", null)
+        mPresenter?.start<HomeBean>("loadData", "", null)
         recyclerView.layoutManager = LinearLayoutManager(activity)
         mAdapter = activity?.let { HomeAdatper(it, mList) }
         recyclerView.adapter = mAdapter

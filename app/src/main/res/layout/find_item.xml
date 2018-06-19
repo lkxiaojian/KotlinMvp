@@ -9,12 +9,14 @@
         <variable
             name="bean"
             type="com.example.lk.kotlinmvp.mvp.m.bean.FindBean" />
+
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:onClick="@{bean.Onclick}"
         android:orientation="vertical"
         android:padding="10dp">
 

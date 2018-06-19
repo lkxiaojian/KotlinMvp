@@ -8,11 +8,14 @@ import java.util.*
 /**
  * Created by lk on 2018/6/8.
  */
-interface Contract{
+interface Contract {
     interface View : BaseView<Presenter> {
-        fun<T> setData(type:String,bean : T)
+        fun <T> setData(type: String, bean: T)
+        fun  setError( type: String,error: Throwable)
     }
+
     interface Presenter : BasePresenter {
-        fun<T> requestData(type:String,map:HashMap<*,*>?)
+        fun <T> requestData(type: String, url: String, map: HashMap<*, *>?)
     }
+
 }

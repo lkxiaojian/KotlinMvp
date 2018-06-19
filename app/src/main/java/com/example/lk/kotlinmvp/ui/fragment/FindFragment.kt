@@ -18,6 +18,10 @@ import java.util.ArrayList
  * Created by lk on 2018/6/12.
  */
 class FindFragment : BaseFragment(), Contract.View {
+    override fun setError(type: String, error: Throwable) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     var mPresenter: ParsingPresenter? = null
     var mList: MutableList<FindBean>? = null
     var binding: FindHomeBinding? = null
@@ -42,7 +46,7 @@ class FindFragment : BaseFragment(), Contract.View {
 
     override fun initView() {
         mPresenter = ParsingPresenter(context!!, this)
-        mPresenter?.start<MutableList<FindBean>>("findFragment", null)
+        mPresenter?.start<MutableList<FindBean>>("findFragment", "", null)
         binding?.data = mList as ArrayList<FindBean>?
     }
 
