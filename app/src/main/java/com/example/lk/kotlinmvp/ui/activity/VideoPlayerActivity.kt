@@ -14,6 +14,10 @@ import kotlinx.android.synthetic.main.videoplayeractivity.*
  * Created by lk on 2018/6/19.
  */
 class VideoPlayerActivity : BaseActivity() {
+    override fun onError(type: String, error: Throwable) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     var bean: HomeBean.IssueListBean.ItemListBean? = null
     override fun initview() {
         bean = intent.extras.get("bean") as HomeBean.IssueListBean.ItemListBean?
@@ -41,9 +45,7 @@ class VideoPlayerActivity : BaseActivity() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun setError(type: String, error: Throwable) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+
 
     override fun onStop() {
         super.onStop()

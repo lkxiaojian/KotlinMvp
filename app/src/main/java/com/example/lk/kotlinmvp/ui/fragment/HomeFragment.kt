@@ -31,11 +31,11 @@ class HomeFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
     var mList = ArrayList<HomeBean.IssueListBean.ItemListBean>()
     var mAdapter: HomeAdatper? = null
     var data: String? = null
+    var bean: HomeBean? = null
     override fun <T> setData(type: String, reuslt: T) {
         if (!"loadData".equals(type)) {
             return
         }
-        var bean: HomeBean? = null
         bean = reuslt as HomeBean
         val regEx = "[^0-9]"
         val p = Pattern.compile(regEx)
@@ -59,7 +59,6 @@ class HomeFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
     override fun onRefresh() {
         if (!mIsRefresh) {
             mIsRefresh = true
-
             mPresenter?.start<HomeBean>("loadData", "",null)
         }
     }
