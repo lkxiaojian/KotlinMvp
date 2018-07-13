@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,7 +60,7 @@ class HomeFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
     override fun onRefresh() {
         if (!mIsRefresh) {
             mIsRefresh = true
-            mPresenter?.start<HomeBean>("loadData", "",null)
+            mPresenter?.start<HomeBean>("loadData", "")
         }
     }
 
@@ -76,7 +77,10 @@ class HomeFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
 
     override fun initView() {
         mPresenter = activity?.let { ParsingPresenter(it, this) }
-        mPresenter?.start<HomeBean>("loadData", "", null)
+        var map= hashMapOf<String ,Any>()
+        map.put("v",1)
+
+        mPresenter?.start<HomeBean>("loadData", "",map)
         recyclerView.layoutManager = LinearLayoutManager(activity)
         mAdapter = activity?.let { HomeAdatper(it, mList) }
         recyclerView.adapter = mAdapter
@@ -88,12 +92,13 @@ class HomeFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
                 var lastPositon = layoutManager.findLastVisibleItemPosition()
                 if (newState == RecyclerView.SCROLL_STATE_IDLE && lastPositon == mList.size - 1) {
                     if (data != null) {
-                        mPresenter?.moreData<HomeBean>(data,"","loadData",null)
+                        mPresenter?.moreData<HomeBean>(data, "", "loadData", null)
                     }
 
                 }
             }
         })
     }
+
 
 }

@@ -23,9 +23,19 @@ class ParsingPresenter(context: Context, view: Contract.View) : Contract.Present
         mContext = context
     }
 
-    override fun <T> start(type: String, url: String, map: HashMap<*, *>?) {
+    override fun <T> start(vararg value: Any) {
+        if (value == null || value.size < 2) {
+            return
+        }
+        var type: String = value[0] as String
+        var url: String = value[1] as String
+        var map: HashMap<*, *>? = null
+        if (value.size == 3) {
+            map = value[2] as HashMap<*, *>
+        }
         requestData<T>(type, url, map)
     }
+
 
     override fun <T> requestData(type: String, url: String, map: HashMap<*, *>?) {
         when (type) {
@@ -47,16 +57,16 @@ class ParsingPresenter(context: Context, view: Contract.View) : Contract.Present
                 CustomData(observable, type)
             }
         }
-        }
-
-        fun <T> CustomData(observable: Observable<T>?, type: String) {
-            observable?.applySchedulers()?.subscribe({ beans: T ->
-                mView?.setData(type, beans)
-            }, { error: Throwable ->
-                mView?.onError(type, error)
-            })
-
-        }
     }
+
+    fun <T> CustomData(observable: Observable<T>?, type: String) {
+        observable?.applySchedulers()?.subscribe({ beans: T ->
+            mView?.setData(type, beans)
+        }, { error: Throwable ->
+            mView?.onError(type, error)
+        })
+
+    }
+}
 
 

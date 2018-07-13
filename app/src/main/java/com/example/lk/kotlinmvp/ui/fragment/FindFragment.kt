@@ -17,7 +17,7 @@ import java.util.ArrayList
 /**
  * Created by lk on 2018/6/12.
  */
-class FindFragment : BaseFragment(){
+class FindFragment : BaseFragment() {
     override fun onError(type: String, error: Throwable) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -47,7 +47,7 @@ class FindFragment : BaseFragment(){
 
     override fun initView() {
         mPresenter = ParsingPresenter(context!!, this)
-        mPresenter?.start<MutableList<FindBean>>("findFragment", "", null)
+        mPresenter?.start<MutableList<FindBean>>("findFragment", "")
         binding?.data = mList as ArrayList<FindBean>?
     }
 
