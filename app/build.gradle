@@ -63,4 +63,5 @@ dependencies {
     compile 'com.gyf.barlibrary:barlibrary:2.2.5'
     compile 'com.android.support:multidex:1.0.0'
     implementation 'com.github.lkxiaojian:CustomRecycleview:1.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.8.1'
 }

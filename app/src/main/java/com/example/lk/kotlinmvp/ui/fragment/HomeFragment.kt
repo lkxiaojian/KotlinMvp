@@ -22,7 +22,7 @@ import java.util.regex.Pattern
  */
 class HomeFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
     override fun onError(type: String, error: Throwable) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
 

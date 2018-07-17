@@ -6,7 +6,6 @@ import com.example.urilslibrary.Utils
 import okhttp3.CacheControl
 import okhttp3.Interceptor
 import okhttp3.Response
-
 /**
  * Created by lk on 2018/6/8.
  */
@@ -18,11 +17,8 @@ class CacheInterceptor(context: Context) : Interceptor {
             val response = chain?.proceed(request)
             // read from cache for 60 s
             val maxAge = 60
-            val cacheControl = request?.cacheControl().toString()
-            Log.e("CacheInterceptor", "6s load cahe" + cacheControl)
             return response?.newBuilder()?.removeHeader("Pragma")?.removeHeader("Cache-Control")?.header("Cache-Control", "public, max-age=" + maxAge)?.build()
         } else {
-            Log.e("CacheInterceptor", " no network load cahe")
             request = request?.newBuilder()?.cacheControl(CacheControl.FORCE_CACHE)?.build()
             val response = chain?.proceed(request)
             //set cahe times is 3 days

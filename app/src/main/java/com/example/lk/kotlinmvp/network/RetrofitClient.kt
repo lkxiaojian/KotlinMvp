@@ -27,8 +27,6 @@ class RetrofitClient {
         //缓存地址
         if (httpCacheDirectory == null) {
             httpCacheDirectory = File(mContext.cacheDir, "app_cache")
-
-
         }
         try {
             if (cache == null) {
@@ -42,7 +40,7 @@ class RetrofitClient {
                 .addNetworkInterceptor(
                         HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .cache(cache)
-                .addInterceptor(CacheInterceptor(mContext))
+                .addInterceptor(getLogInterceptor())
                 .addNetworkInterceptor(CacheInterceptor(mContext))
                 .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
@@ -56,6 +54,20 @@ class RetrofitClient {
                 .build()
 
     }
+
+
+    /**
+     * 日志拦截
+     */
+    fun getLogInterceptor(): HttpLoggingInterceptor {
+        // 日志显示级别
+        val level = HttpLoggingInterceptor.Level.BODY
+        // 新建日志拦截器
+        val loggingInterceptor = HttpLoggingInterceptor { message -> Log.e("ApiUrl", "--->$message") }
+        loggingInterceptor.level = level
+        return loggingInterceptor
+    }
+
 
     companion object {
         fun getInstance(): RetrofitClient {
