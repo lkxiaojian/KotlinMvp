@@ -2,10 +2,7 @@ package com.example.lk.kotlinmvp.ui.fragment.base
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import com.example.lk.kotlinmvp.mvp.v.Contract
 
 
@@ -18,7 +15,6 @@ abstract class BaseFragment : Fragment(), Contract.View {
         rootView = getLayoutView()
         initView()
     }
-
 
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
@@ -50,4 +46,9 @@ abstract class BaseFragment : Fragment(), Contract.View {
     abstract fun getLayoutView(): View
 
     abstract fun initView()
+
+    override fun onDestroy() {
+        super.onDestroy()
+        rootView = null
+    }
 }

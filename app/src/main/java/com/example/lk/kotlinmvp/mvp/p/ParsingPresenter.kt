@@ -9,10 +9,9 @@ import io.reactivex.Observable
 /**
  * Created by lk on 2018/6/8.
  */
-class ParsingPresenter(context: Context, view: Contract.View) : Contract.Presenter {
+class ParsingPresenter(view: Contract.View) : Contract.Presenter {
 
 
-    var mContext: Context? = null
     var mView: Contract.View? = null
     val mModel: HomeModel by lazy {
         HomeModel()
@@ -20,7 +19,6 @@ class ParsingPresenter(context: Context, view: Contract.View) : Contract.Present
 
     init {
         mView = view
-        mContext = context
     }
 
     override fun <T> start(vararg value: Any) {
@@ -40,11 +38,11 @@ class ParsingPresenter(context: Context, view: Contract.View) : Contract.Present
     override fun <T> requestData(type: String, url: String, map: HashMap<*, *>?) {
         when (type) {
             "loadData" -> {
-                val observable: Observable<T>? = mContext?.let { mModel.loadData(it, true, "0") }
+                val observable: Observable<T>? = let { mModel.loadData(true, "0") }
                 CustomData(observable, type)
             }
             "findFragment" -> {
-                val observable: Observable<T>? = mContext?.let { mModel.FindData(mContext!!) }
+                val observable: Observable<T>? = let { mModel.FindData() }
                 CustomData(observable, type)
             }
         }
@@ -53,13 +51,16 @@ class ParsingPresenter(context: Context, view: Contract.View) : Contract.Present
     fun <T> moreData(data: String?, url: String, type: String, map: HashMap<*, *>?) {
         when (type) {
             "loadData" -> {
-                val observable: Observable<T>? = mContext?.let { mModel.loadData(it, false, data) }
+                val observable: Observable<T>? = let { mModel.loadData(false, data) }
                 CustomData(observable, type)
             }
         }
     }
 
     fun <T> CustomData(observable: Observable<T>?, type: String) {
+        if (mView == null) {
+            return
+        }
         observable?.applySchedulers()?.subscribe({ beans: T ->
             mView?.setData(type, beans)
         }, { error: Throwable ->

@@ -76,7 +76,7 @@ class HomeFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
     }
 
     override fun initView() {
-        mPresenter = activity?.let { ParsingPresenter(it, this) }
+        mPresenter = activity?.let { ParsingPresenter( this) }
         var map= hashMapOf<String ,Any>()
         map.put("v",1)
 

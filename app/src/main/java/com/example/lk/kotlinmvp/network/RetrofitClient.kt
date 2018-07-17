@@ -2,6 +2,7 @@ package com.example.lk.kotlinframework.network
 
 import android.content.Context
 import android.util.Log
+import com.example.lk.kotlinmvp.App.MyApplication
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.internal.cache.CacheInterceptor
@@ -15,33 +16,34 @@ import java.util.concurrent.TimeUnit
 /**
  * Created by lk on 2018/6/8.
  */
-class RetrofitClient private constructor(context: Context, baseUrl:String){
-    var httpCacheDirectory : File? = null
-    val mContext : Context = context
-    var cache : Cache? = null
-    var okHttpClient : OkHttpClient? = null
-    var retrofit : Retrofit? = null
-    val DEFAULT_TIMEOUT : Long = 20
-    val url = baseUrl
+class RetrofitClient {
+    var httpCacheDirectory: File? = null
+    val mContext: Context = MyApplication.getAppContext()
+    var cache: Cache? = null
+    var okHttpClient: OkHttpClient? = null
+    var retrofit: Retrofit? = null
+    val DEFAULT_TIMEOUT: Long = 20
     init {
         //缓存地址
         if (httpCacheDirectory == null) {
             httpCacheDirectory = File(mContext.cacheDir, "app_cache")
+
+
         }
         try {
             if (cache == null) {
                 cache = Cache(httpCacheDirectory, 10 * 1024 * 1024)
             }
         } catch (e: Exception) {
-            Log.e("OKHttp", "Could not create http cache", e)
+//            Log.e("OKHttp", "Could not create http cache--"+ e)
         }
         //okhttp创建了
         okHttpClient = OkHttpClient.Builder()
                 .addNetworkInterceptor(
                         HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .cache(cache)
-                .addInterceptor(CacheInterceptor(context))
-                .addNetworkInterceptor(CacheInterceptor(context))
+                .addInterceptor(CacheInterceptor(mContext))
+                .addNetworkInterceptor(CacheInterceptor(mContext))
                 .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 .build()
@@ -50,28 +52,23 @@ class RetrofitClient private constructor(context: Context, baseUrl:String){
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .baseUrl(url)
+                .baseUrl(ApiService.BASE_URL)
                 .build()
 
     }
-    companion object{
-        @Volatile
-        var instance: RetrofitClient? = null
 
-        fun getInstance(context: Context, baseUrl: String) : RetrofitClient {
-            if (instance == null) {
-                synchronized(RetrofitClient::class) {
-                    if (instance == null) {
-                        instance = RetrofitClient(context,baseUrl)
-                    }
-                }
-            }
-            return instance!!
+    companion object {
+        fun getInstance(): RetrofitClient {
+            return SingletonHolder.holder
         }
 
-
-
     }
+
+
+    private object SingletonHolder {
+        val holder = RetrofitClient()
+    }
+
 
     fun <T> create(service: Class<T>?): T? {
         if (service == null) {
