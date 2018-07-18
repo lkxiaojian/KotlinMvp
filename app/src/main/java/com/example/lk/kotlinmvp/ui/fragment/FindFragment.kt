@@ -47,7 +47,10 @@ class FindFragment : BaseFragment() {
 
     override fun initView() {
         mPresenter = ParsingPresenter(this)
-        mPresenter?.start<MutableList<FindBean>>("findFragment", "FindData")
+        var map = HashMap<String, Any>()
+        map.put("type", "findFragment")
+        map.put("method", "FindData")
+        mPresenter?.start<MutableList<FindBean>>(map)
         binding?.data = mList as ArrayList<FindBean>?
     }
 

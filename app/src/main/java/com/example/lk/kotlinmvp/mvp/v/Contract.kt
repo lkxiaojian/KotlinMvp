@@ -15,9 +15,7 @@ interface Contract {
     }
 
     interface Presenter : BasePresenter {
-        fun <T> requestData(type: String, method:String,url: String?, map: HashMap<*, *>?)
-
-//        fun <T> requestData(vararg value:Any)
+        fun <T> requestData(type: String, method:String,url: String?, map: HashMap<*, *>?,vararg param: Any?)
     }
 
 }

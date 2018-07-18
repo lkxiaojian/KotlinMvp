@@ -16,11 +16,9 @@ class HomeModel {
     val retrofitClient = RetrofitClient.getInstance()
     val apiService = retrofitClient.create(ApiService::class.java)
     fun <T> loadData(vararg value: Any?): Observable<T>? {
-        val retrofitClient = RetrofitClient.getInstance()
-        val apiService = retrofitClient.create(ApiService::class.java)
-        var isfalg = false
-        if (value.size == 0) {
-            isfalg = true
+        var isfalg = true
+        if (value.size == 2) {
+            isfalg = false
         }
         when (isfalg) {
             true -> return apiService?.getHomeData<HomeBean>() as Observable<T>
