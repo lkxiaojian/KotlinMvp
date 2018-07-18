@@ -6,6 +6,7 @@ import java.lang.reflect.Method
 
 /**
  * Created by lk on 2018/7/18.
+ * 通过反射 来动态处理网络请求
  */
 class Dynamic {
     companion object {
@@ -22,7 +23,7 @@ class Dynamic {
                 }
             }
             executeMethods?.isAccessible = true
-            Log.e("executeMethods", "executeMethods--"+executeMethods)
+            Log.e("executeMethods", "executeMethods--" + executeMethods)
             return executeMethods?.invoke(instance, value) as T?
         }
     }

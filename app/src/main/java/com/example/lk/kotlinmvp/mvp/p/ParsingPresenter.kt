@@ -23,8 +23,8 @@ class ParsingPresenter(view: Contract.View) : Contract.Presenter {
     }
 
     /**
-     * value[0]  返回类型  多个请求同时进行 ，根据此字段来判断
-     * value[1]  请求网络的方法名
+     * value[0]  返回类型  多个请求同时进行 ，根据此字段来判断  必传
+     * value[1]  请求网络的方法名  必传
      * value[2]  如果是用rf  直接用 URL 来请求的url地址
      * value[3]  如果 是请求 网络的时候，有表单  此map为表单
      * value[4]  用 rf 请求所带的参数     如 fun <T> getHomeMoreData(@Query("date") date: String, @Query("num") num: String): Observable<HomeBean>
@@ -64,11 +64,16 @@ class ParsingPresenter(view: Contract.View) : Contract.Presenter {
     }
 
     override fun <T> requestData(type: String, method: String, url: String?, map: HashMap<*, *>?, vararg param: Any?) {
-
+        //通过反射进行动态代理
         val observable: Observable<T>? = let { Dynamic.invoke(mModel.javaClass.name, method, param) }
+        //p层与v层的交互     对view 返回数据
         CustomData(observable, type)
     }
 
+    /**
+     * 加载更多  可以用start  代替
+     * 也可以改写为  动态代理 的 方式来实现  根据自己的项目  需求来进行抉择
+     */
     fun <T> moreData(data: String?, url: String, type: String, map: HashMap<*, *>?) {
 
         when (type) {
