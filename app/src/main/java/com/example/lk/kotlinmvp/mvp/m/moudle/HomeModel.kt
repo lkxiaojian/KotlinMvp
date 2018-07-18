@@ -13,19 +13,23 @@ import io.reactivex.Observable
  */
 class HomeModel {
 
-
-    fun <T> loadData( isFirst: Boolean, data: String?): Observable<T>? {
+    val retrofitClient = RetrofitClient.getInstance()
+    val apiService = retrofitClient.create(ApiService::class.java)
+    fun <T> loadData(vararg value: Any?): Observable<T>? {
         val retrofitClient = RetrofitClient.getInstance()
         val apiService = retrofitClient.create(ApiService::class.java)
-        when (isFirst) {
+        var isfalg = false
+        if (value.size == 0) {
+            isfalg = true
+        }
+        when (isfalg) {
             true -> return apiService?.getHomeData<HomeBean>() as Observable<T>
-            false -> return apiService?.getHomeMoreData<HomeBean>(data.toString(), "2") as Observable<T>
+            false -> return apiService?.getHomeMoreData<HomeBean>(value[1] as String, "2") as Observable<T>
         }
     }
 
-    fun<T> FindData(): Observable<T>? {
-        val retrofitClient = RetrofitClient.getInstance()
-        val apiService = retrofitClient.create(ApiService::class.java)
+
+    fun <T> FindData(vararg value: Any?): Observable<T>? {
         return apiService?.getFindData() as Observable<T>
     }
 }

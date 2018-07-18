@@ -19,7 +19,7 @@ import java.util.ArrayList
  */
 class FindFragment : BaseFragment() {
     override fun onError(type: String, error: Throwable) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
 
@@ -47,7 +47,7 @@ class FindFragment : BaseFragment() {
 
     override fun initView() {
         mPresenter = ParsingPresenter(this)
-        mPresenter?.start<MutableList<FindBean>>("findFragment", "")
+        mPresenter?.start<MutableList<FindBean>>("findFragment", "FindData")
         binding?.data = mList as ArrayList<FindBean>?
     }
 

@@ -2,6 +2,7 @@ package com.example.lk.kotlinmvp.mvp.p
 
 import android.content.Context
 import com.example.lk.kotlinframework.mvp.m.moudle.HomeModel
+import com.example.lk.kotlinmvp.mvp.m.dynamic.Dynamic
 import com.example.lk.kotlinmvp.mvp.v.Contract
 import com.example.lk.kotlinmvp.uitls.applySchedulers
 import io.reactivex.Observable
@@ -26,32 +27,31 @@ class ParsingPresenter(view: Contract.View) : Contract.Presenter {
             return
         }
         var type: String = value[0] as String
-        var url: String = value[1] as String
-        var map: HashMap<*, *>? = null
-        if (value.size == 3) {
-            map = value[2] as HashMap<*, *>
+        var method: String = value[1] as String
+        var url: String?=null
+        if (value.size > 2) {
+            url = value[2] as String
         }
-        requestData<T>(type, url, map)
+
+        var map: HashMap<*, *>? = null
+        if (value.size == 4) {
+            map = value[3] as HashMap<*, *>
+        }
+        requestData<T>(type, method, url, map)
     }
 
 
-    override fun <T> requestData(type: String, url: String, map: HashMap<*, *>?) {
-        when (type) {
-            "loadData" -> {
-                val observable: Observable<T>? = let { mModel.loadData(true, "0") }
-                CustomData(observable, type)
-            }
-            "findFragment" -> {
-                val observable: Observable<T>? = let { mModel.FindData() }
-                CustomData(observable, type)
-            }
-        }
+    override fun <T> requestData(type: String, method: String, url: String?, map: HashMap<*, *>?) {
+
+        val observable: Observable<T>? = let { Dynamic.invoke(mModel.javaClass.name, method) }
+        CustomData(observable, type)
     }
 
     fun <T> moreData(data: String?, url: String, type: String, map: HashMap<*, *>?) {
+
         when (type) {
             "loadData" -> {
-                val observable: Observable<T>? = let { mModel.loadData(false, data) }
+                val observable: Observable<T>? = let { mModel.loadData(false, data!!) }
                 CustomData(observable, type)
             }
         }

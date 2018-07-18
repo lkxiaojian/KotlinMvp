@@ -60,7 +60,7 @@ class HomeFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
     override fun onRefresh() {
         if (!mIsRefresh) {
             mIsRefresh = true
-            mPresenter?.start<HomeBean>("loadData", "")
+            mPresenter?.start<HomeBean>("loadData", "loadData")
         }
     }
 
@@ -76,11 +76,8 @@ class HomeFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
     }
 
     override fun initView() {
-        mPresenter = activity?.let { ParsingPresenter( this) }
-        var map= hashMapOf<String ,Any>()
-        map.put("v",1)
-
-        mPresenter?.start<HomeBean>("loadData", "",map)
+        mPresenter = activity?.let { ParsingPresenter(this) }
+        mPresenter?.start<HomeBean>("loadData", "loadData")
         recyclerView.layoutManager = LinearLayoutManager(activity)
         mAdapter = activity?.let { HomeAdatper(it, mList) }
         recyclerView.adapter = mAdapter
