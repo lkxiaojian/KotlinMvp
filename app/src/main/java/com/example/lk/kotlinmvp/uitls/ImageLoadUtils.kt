@@ -39,6 +39,21 @@ class ImageLoadUtils {
                     .error(R.drawable.ic_empty_picture)
                     .into(imageView)
         }
+
+
+        @BindingAdapter("imageUrl")
+        @JvmStatic
+        fun display(imageView: ImageView?, url: String) {
+            if (imageView == null) {
+                return
+            }
+            Glide.with(imageView.context).load(url)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .centerCrop()
+                    .placeholder(R.drawable.ic_image_loading)
+                    .error(R.drawable.ic_empty_picture)
+                    .crossFade().into(imageView)
+        }
     }
 
 }
